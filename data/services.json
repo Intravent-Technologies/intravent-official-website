@@ -1,0 +1,73 @@
+[
+  {
+    "id": "web-development",
+    "title": "Web Development",
+    "shortDesc": "Fast, responsive websites and web apps engineered for performance and growth.",
+    "description": "We build fast, responsive websites and web applications that drive business growth. From corporate sites to complex SaaS platforms, our web solutions are engineered for performance, SEO, and exceptional user experience. Every site is built mobile-first with modern frameworks, optimized for Core Web Vitals, and designed to convert visitors into customers. Whether you need a marketing site, an e-commerce store, or a full-scale web application, we deliver production-ready code that scales with your business.",
+    "active": true,
+    "icon": "https://i.pinimg.com/736x/87/88/d5/8788d54d20778e7d84dfa627b53d0ed4.jpg",
+    "features": [""]
+  },
+  {
+    "id": "software-development",
+    "title": "Software Development",
+    "shortDesc": "Custom enterprise software tailored to automate, integrate, and transform.",
+    "description": "Custom enterprise software tailored to your unique business needs. We design, build, and deploy scalable applications that automate workflows, integrate systems, and accelerate digital transformation. Our team follows industry best practices — clean architecture, CI/CD pipelines, automated testing, and cloud-native deployment — to deliver reliable, maintainable software. From legacy system modernization to greenfield development, we partner with you through the full product lifecycle.",
+    "active": true,
+    "icon": "https://i.pinimg.com/736x/d6/db/18/d6db18f379c4d7aa326f998cf69aae32.jpg",
+    "features": [""]
+  },
+  {
+    "id": "mobile-app-development",
+    "title": "Mobile App Development",
+    "shortDesc": "Native and cross-platform mobile apps that engage users and deliver value.",
+    "description": "Native and cross-platform mobile applications for iOS and Android. We create intuitive, high-performance mobile experiences that engage users and deliver real business value. Our team handles everything from UI/UX design tailored to mobile gestures to backend API integration and App Store deployment. Whether you need a customer-facing app, an enterprise mobility solution, or a minimum viable product to test your idea, we bring decades of combined experience to every project.",
+    "active": true,
+    "icon": "https://i.pinimg.com/736x/0a/ea/b7/0aeab7d5226cffa432352c9db8557ad9.jpg",
+    "features": [""]
+  },
+  {
+    "id": "cybersecurity",
+    "title": "Cybersecurity",
+    "shortDesc": "Comprehensive security solutions to protect your digital assets.",
+    "description": "Protect your digital assets with comprehensive cybersecurity solutions. We offer vulnerability assessments, penetration testing, security audits, and managed security services to safeguard your infrastructure. Our team stays ahead of emerging threats with continuous monitoring, incident response planning, and compliance-driven security frameworks. From small businesses to enterprise environments, we tailor our approach to your risk profile and regulatory requirements.",
+    "active": true,
+    "icon": "https://i.pinimg.com/736x/69/e0/0b/69e00be05f7eb68fb22adfcff784f799.jpg",
+    "features": [""]
+  },
+  {
+    "id": "solar-installation",
+    "title": "Solar Installation",
+    "shortDesc": "End-to-end solar energy solutions for residential and commercial properties.",
+    "description": "End-to-end solar energy solutions for residential and commercial properties. From site assessment and system design to installation and monitoring, we deliver clean, reliable, and cost-effective energy. Our team manages the entire process — permits, utility coordination, equipment procurement, and commissioning. We use high-efficiency panels and inverters to maximize energy production, and our monitoring platform lets you track system performance in real time.",
+    "active": true,
+    "icon": "https://i.pinimg.com/1200x/ea/42/7a/ea427a16cd68490ef9687dc8fd5487ce.jpg",
+    "features": [""]
+  },
+  {
+    "id": "product-design",
+    "title": "Product Design & Management",
+    "shortDesc": "From concept to launch — design and manage products users love.",
+    "description": "From concept to launch, we design and manage digital products that users love. Our service covers UX research, UI design, prototyping, product strategy, and roadmap planning. We conduct user interviews, competitive analysis, and usability testing to inform design decisions, then craft pixel-perfect interfaces that align with your brand. Our product managers work alongside your team to define priorities, manage sprints, and ensure on-time delivery.",
+    "active": true,
+    "icon": "https://images.pexels.com/photos/6614748/pexels-photo-6614748.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  {
+    "id": "java-development",
+    "title": "Java Stack Development",
+    "shortDesc": "Enterprise-grade Java solutions — scalable, secure, and built for performance.",
+    "description": "We build enterprise-grade applications using the full Java ecosystem. From Spring Boot microservices to Jakarta EE platforms, our Java solutions are designed for scalability, security, and long-term maintainability. Whether you need custom enterprise software, RESTful APIs, or cloud-native Java applications, our team delivers production-ready systems that power critical business operations.",
+    "active": true,
+    "icon": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80",
+    "features": [""]
+  },
+  {
+    "id": "professional-training",
+    "title": "Professional Training",
+    "shortDesc": "Industry-recognized certification training — PMP, SCRUM, and more.",
+    "description": "Accelerate your career with industry-recognized certification training. We offer PMP, SCRUM, and other professional development programs designed to equip professionals with in-demand skills and globally recognized credentials. Our certified instructors bring real-world experience to every session, combining rigorous curriculum with practical case studies. We offer both live virtual and in-person formats, plus post-certification support to help you apply your new skills immediately.",
+    "active": true,
+    "icon": "https://i.pinimg.com/736x/03/07/7c/03077c99119218da9c80857d01a22b5c.jpg",
+    "features": [""]
+  }
+]
