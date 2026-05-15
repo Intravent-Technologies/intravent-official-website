@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readData, writeData } from "@/lib/data";
 import { verifyToken } from "@/lib/auth";
+import { getSupabase } from "@/lib/supabase";
 import nodemailer from "nodemailer";
 
 function getTransporter() {
@@ -62,22 +63,32 @@ export async function GET(request: NextRequest) {
   if (!token || !verifyToken(token)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  return NextResponse.json(readData("newsletter.json"));
+  return NextResponse.json(await readData("newsletter.json"));
 }
 
 export async function POST(request: NextRequest) {
   const { email } = await request.json();
   if (!email) return NextResponse.json({ error: "Email required" }, { status: 400 });
-  const data = readData<{ email: string; date: string }>("newsletter.json");
-  if (data.find((s) => s.email === email)) {
+
+  const supabase = getSupabase();
+  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 500 });
+
+  const { data: existing } = await supabase
+    .from("newsletter")
+    .select("email")
+    .eq("email", email)
+    .maybeSingle();
+  if (existing) {
     return NextResponse.json({ error: "Already subscribed" }, { status: 409 });
   }
+
   const entry = { email, date: new Date().toISOString() };
-  data.push(entry);
-  writeData("newsletter.json", data);
+  const { error } = await supabase.from("newsletter").insert(entry);
+  if (error) {
+    return NextResponse.json({ error: "Failed to subscribe" }, { status: 500 });
+  }
 
   sendWelcomeEmail(email);
-
   return NextResponse.json({ success: true, item: entry });
 }
 
@@ -88,12 +99,12 @@ export async function DELETE(request: NextRequest) {
   }
   const { email } = await request.json();
   if (!email) return NextResponse.json({ error: "Email required" }, { status: 400 });
-  let data = readData<{ email: string; date: string }>("newsletter.json");
-  const before = data.length;
-  data = data.filter((s) => s.email !== email);
-  if (data.length === before) {
+
+  const supabase = getSupabase();
+  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 500 });
+  const { error } = await supabase.from("newsletter").delete().eq("email", email);
+  if (error) {
     return NextResponse.json({ error: "Subscriber not found" }, { status: 404 });
   }
-  writeData("newsletter.json", data);
   return NextResponse.json({ success: true });
 }

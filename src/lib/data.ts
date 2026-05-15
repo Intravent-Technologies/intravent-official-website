@@ -1,15 +1,53 @@
-import fs from "fs";
-import path from "path";
+import { getSupabase } from "@/lib/supabase";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-
-export function readData<T>(filename: string): T[] {
-  const filePath = path.join(DATA_DIR, filename);
-  if (!fs.existsSync(filePath)) return [];
-  return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+function keyFromFilename(filename: string): string {
+  return filename.replace(/\.json$/, "");
 }
 
-export function writeData<T>(filename: string, data: T[]): void {
-  const filePath = path.join(DATA_DIR, filename);
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
+export async function readData<T>(filename: string): Promise<T[]> {
+  const supabase = getSupabase();
+  if (!supabase) return [];
+
+  const key = keyFromFilename(filename);
+  if (key === "newsletter" || key === "contacts") {
+    const { data, error } = await supabase
+      .from(key)
+      .select("*")
+      .order("date", { ascending: false });
+    if (error) {
+      console.error(`readData(${filename}) error:`, error);
+      return [];
+    }
+    return (data as T[]) || [];
+  }
+  const { data, error } = await supabase
+    .from("site_data")
+    .select("value")
+    .eq("key", key)
+    .single();
+  if (error || !data) {
+    console.error(`readData(${filename}) error:`, error);
+    return [];
+  }
+  return (data.value as T[]) || [];
+}
+
+export async function writeData<T>(filename: string, items: T[]): Promise<void> {
+  const supabase = getSupabase();
+  if (!supabase) {
+    console.warn("Supabase not configured — write skipped");
+    return;
+  }
+
+  const key = keyFromFilename(filename);
+  if (key === "newsletter" || key === "contacts") {
+    console.warn(`Direct write to ${key} not supported via writeData. Use the API routes.`);
+    return;
+  }
+  const { error } = await supabase
+    .from("site_data")
+    .upsert({ key, value: items, updated_at: new Date().toISOString() });
+  if (error) {
+    console.error(`writeData(${filename}) error:`, error);
+  }
 }

@@ -78,13 +78,13 @@ function renderContent(text: string) {
 }
 
 export async function generateStaticParams() {
-  const posts = readData<Post>("blog.json");
+  const posts = await readData<Post>("blog.json");
   return posts.map((post) => ({ id: post.id }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const posts = readData<Post>("blog.json");
+  const posts = await readData<Post>("blog.json");
   const post = posts.find((p) => p.id === id);
   if (!post) return {};
   return {
@@ -100,7 +100,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPost({ params }: Props) {
   const { id } = await params;
-  const posts = readData<Post>("blog.json");
+  const posts = await readData<Post>("blog.json");
   const post = posts.find((p) => p.id === id);
   if (!post) notFound();
   const related = posts.filter((p) => p.id !== post.id).slice(0, 3);

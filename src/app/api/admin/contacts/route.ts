@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readData, writeData } from "@/lib/data";
+import { readData } from "@/lib/data";
 import { verifyToken } from "@/lib/auth";
+import { getSupabase } from "@/lib/supabase";
 import nodemailer from "nodemailer";
 
 function getTransporter() {
@@ -52,7 +53,7 @@ export async function GET(request: NextRequest) {
   if (!token || !verifyToken(token)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  return NextResponse.json(readData("contacts.json"));
+  return NextResponse.json(await readData("contacts.json"));
 }
 
 export async function POST(request: NextRequest) {
@@ -60,13 +61,16 @@ export async function POST(request: NextRequest) {
   if (!name || !email || !message) {
     return NextResponse.json({ error: "Name, email, and message required" }, { status: 400 });
   }
-  const data = readData("contacts.json");
-  const entry = { id: Date.now().toString(), name, email, company: company || "", message, date: new Date().toISOString() };
-  data.push(entry);
-  writeData("contacts.json", data);
 
-  // Fire email notification (don't await — don't block response)
+  const supabase = getSupabase();
+  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 500 });
+
+  const entry = { name, email, company: company || "", message, date: new Date().toISOString() };
+  const { error } = await supabase.from("contacts").insert(entry);
+  if (error) {
+    return NextResponse.json({ error: "Failed to save message" }, { status: 500 });
+  }
+
   sendEmailNotification(entry);
-
   return NextResponse.json({ success: true, item: entry });
 }

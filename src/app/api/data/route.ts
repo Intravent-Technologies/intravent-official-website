@@ -5,13 +5,15 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const services = readData("services.json");
-    const clients = readData("clients.json");
-    const portfolio = readData("portfolio.json");
-    const blog = readData("blog.json");
-    const team = readData("team.json");
-    const newsletter = readData("newsletter.json");
-    const contacts = readData("contacts.json");
+    const [services, clients, portfolio, blog, team, newsletter, contacts] = await Promise.all([
+      readData("services.json"),
+      readData("clients.json"),
+      readData("portfolio.json"),
+      readData("blog.json"),
+      readData("team.json"),
+      readData("newsletter.json"),
+      readData("contacts.json"),
+    ]);
 
     return NextResponse.json({
       services: services.length ? services : null,
