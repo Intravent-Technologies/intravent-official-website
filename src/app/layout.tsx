@@ -31,6 +31,10 @@ export const metadata: Metadata = {
     description:
       "Delivering end-to-end solutions in technology, talent, design, energy, consulting, and software.",
   },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   robots: {
     index: true,
     follow: true,
